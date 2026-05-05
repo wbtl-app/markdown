@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>toolname - wbtl.app</title>
+  <!--
+    TEMPLATE: Favicon
+    Use the same icon as the tool, on the tool's gradient background.
+    Update the fill color to match tool gradient and the path to match tool icon.
+  -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><defs><linearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' stop-color='%23ff6b6b'/><stop offset='100%25' stop-color='%23ee5a5a'/></linearGradient></defs><rect width='32' height='32' rx='6' fill='url(%23g)'/><g transform='translate(4,4)' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' fill='none'><circle cx='12' cy='13' r='8'/><path d='M12 9v4l2 2'/><path d='M9 2h6'/><path d='M12 2v2'/></g></svg>">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --bg-secondary: #f5f5f7;
+      --text: #1d1d1f;
+      --text-secondary: #6e6e73;
+      --accent: #0071e3;
+      --accent-hover: #0077ed;
+      --border: #d2d2d7;
+      --toggle-bg: #e5e5e5;
+      --toggle-knob: #ffffff;
+      /* TEMPLATE: Update these gradient colors for each tool */
+      --tool-gradient-start: #ff6b6b;
+      --tool-gradient-end: #ee5a5a;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #000000;
+        --bg-secondary: #1c1c1e;
+        --text: #f5f5f7;
+        --text-secondary: #98989d;
+        --accent: #2997ff;
+        --accent-hover: #40a9ff;
+        --border: #38383a;
+        --toggle-bg: #3a3a3c;
+        --toggle-knob: #ffffff;
+      }
+    }
+
+    [data-theme="dark"] {
+      --bg: #000000;
+      --bg-secondary: #1c1c1e;
+      --text: #f5f5f7;
+      --text-secondary: #98989d;
+      --accent: #2997ff;
+      --accent-hover: #40a9ff;
+      --border: #38383a;
+      --toggle-bg: #3a3a3c;
+      --toggle-knob: #ffffff;
+    }
+
+    [data-theme="light"] {
+      --bg: #ffffff;
+      --bg-secondary: #f5f5f7;
+      --text: #1d1d1f;
+      --text-secondary: #6e6e73;
+      --accent: #0071e3;
+      --accent-hover: #0077ed;
+      --border: #d2d2d7;
+      --toggle-bg: #e5e5e5;
+      --toggle-knob: #ffffff;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 1.5rem;
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .tool-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--tool-gradient-start), var(--tool-gradient-end));
+    }
+
+    .tool-icon svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .tool-name {
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .back-link {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s ease;
+    }
+
+    .back-link:hover {
+      color: var(--accent);
+    }
+
+    /* Theme Toggle */
+    .theme-toggle {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .theme-toggle svg {
+      width: 16px;
+      height: 16px;
+      stroke: var(--text-secondary);
+      fill: none;
+      stroke-width: 2;
+    }
+
+    .toggle-switch {
+      position: relative;
+      width: 44px;
+      height: 24px;
+      background: var(--toggle-bg);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .toggle-switch::after {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 20px;
+      height: 20px;
+      background: var(--toggle-knob);
+      border-radius: 50%;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+      transition: transform 0.2s ease;
+    }
+
+    [data-theme="dark"] .toggle-switch::after,
+    :root:not([data-theme="light"]) .toggle-switch::after {
+      transform: translateX(20px);
+    }
+
+    @media (prefers-color-scheme: light) {
+      :root:not([data-theme="dark"]) .toggle-switch::after {
+        transform: translateX(0);
+      }
+    }
+
+    main {
+      flex: 1;
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+
+    .content {
+      width: 100%;
+    }
+
+    @media (max-width: 640px) {
+      .tool-name {
+        font-size: 1.1rem;
+      }
+
+      .header-right {
+        gap: 1rem;
+      }
+
+      .back-link {
+        font-size: 0.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-left">
+      <!-- TEMPLATE: Update icon SVG for each tool (same as favicon) -->
+      <div class="tool-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="13" r="8"/>
+          <path d="M12 9v4l2 2"/>
+          <path d="M9 2h6"/>
+          <path d="M12 2v2"/>
+        </svg>
+      </div>
+      <!-- TEMPLATE: Update tool name -->
+      <div class="tool-name">toolname</div>
+    </div>
+    <div class="header-right">
+      <a href="https://wbtl.app" class="back-link">wbtl.app</a>
+      <div class="theme-toggle">
+        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="5"/>
+          <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+        </svg>
+        <div class="toggle-switch" onclick="toggleTheme()" role="button" tabindex="0" aria-label="Toggle dark mode"></div>
+        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="content">
+      CONTENT
+    </div>
+  </main>
+
+  <script>
+    function getSystemTheme() {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+
+    function getStoredTheme() {
+      return localStorage.getItem('wbtl-theme');
+    }
+
+    function setTheme(theme) {
+      if (theme === 'system') {
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.removeItem('wbtl-theme');
+      } else {
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('wbtl-theme', theme);
+      }
+    }
+
+    function toggleTheme() {
+      const current = document.documentElement.getAttribute('data-theme');
+      const system = getSystemTheme();
+
+      if (!current) {
+        // Currently using system, switch to opposite
+        setTheme(system === 'dark' ? 'light' : 'dark');
+      } else {
+        // Currently using manual, check if it matches system
+        if (current === system) {
+          // Matches system, switch to opposite
+          setTheme(current === 'dark' ? 'light' : 'dark');
+        } else {
+          // Doesn't match system, go back to system
+          setTheme('system');
+        }
+      }
+    }
+
+    // Initialize theme from storage
+    (function() {
+      const stored = getStoredTheme();
+      if (stored) {
+        setTheme(stored);
+      }
+    })();
+
+    // Handle keyboard for toggle
+    document.querySelector('.toggle-switch').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggleTheme();
+      }
+    });
+  </script>
+</body>
+</html>
