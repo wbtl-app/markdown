@@ -93,7 +93,7 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.65rem 1rem;
+  padding: 1rem 1.5rem;
   background: var(--bg-secondary);
   border-bottom: 1px solid var(--border);
   flex-shrink: 0;
@@ -108,9 +108,9 @@ header {
 }
 
 .tool-icon {
-  width: 36px;
-  height: 36px;
-  border-radius: 8px;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -119,12 +119,12 @@ header {
 }
 
 .tool-icon svg {
-  width: 22px;
-  height: 22px;
+  width: 24px;
+  height: 24px;
 }
 
 .tool-name {
-  font-size: 1rem;
+  font-size: 1.25rem;
   font-weight: 600;
   white-space: nowrap;
 }
@@ -135,7 +135,7 @@ header {
   color: var(--text);
   font-size: 0.95rem;
   font-weight: 500;
-  padding: 0.3rem 0.55rem;
+  padding: 0.35rem 0.6rem;
   border-radius: 6px;
   font-family: inherit;
   min-width: 100px;
@@ -157,7 +157,7 @@ header {
 .header-right {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 1.25rem;
   flex-shrink: 0;
 }
 
@@ -171,12 +171,12 @@ header {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  padding: 0.45rem 0.7rem;
+  padding: 0.5rem 0.75rem;
   background: transparent;
   border: 1px solid var(--border);
   color: var(--text);
   border-radius: 6px;
-  font-size: 0.85rem;
+  font-size: 0.875rem;
   font-family: inherit;
   cursor: pointer;
   transition: background 0.15s, border-color 0.15s, color 0.15s;
@@ -247,6 +247,27 @@ header {
   background: var(--bg-secondary);
 }
 
+.menu-item.active {
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.menu-item.active::before {
+  content: '✓ ';
+}
+
+.back-link {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.85rem;
+  transition: color 0.2s ease;
+  white-space: nowrap;
+}
+
+.back-link:hover {
+  color: var(--accent);
+}
+
 /* THEME TOGGLE */
 .theme-toggle {
   display: flex;
@@ -255,18 +276,18 @@ header {
 }
 
 .theme-toggle svg {
-  width: 14px;
-  height: 14px;
+  width: 16px;
+  height: 16px;
   color: var(--text-secondary);
   stroke-width: 2;
 }
 
 .toggle-switch {
   position: relative;
-  width: 38px;
-  height: 22px;
+  width: 44px;
+  height: 24px;
   background: var(--toggle-bg);
-  border-radius: 11px;
+  border-radius: 12px;
   cursor: pointer;
   transition: background 0.2s ease;
 }
@@ -276,8 +297,8 @@ header {
   position: absolute;
   top: 2px;
   left: 2px;
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
   background: var(--toggle-knob);
   border-radius: 50%;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
@@ -285,12 +306,12 @@ header {
 }
 
 [data-theme="dark"] .toggle-switch::after {
-  transform: translateX(16px);
+  transform: translateX(20px);
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) .toggle-switch::after {
-    transform: translateX(16px);
+    transform: translateX(20px);
   }
 }
 
@@ -724,20 +745,23 @@ body.dragging .drop-overlay {
 }
 
 /* RESPONSIVE */
-@media (max-width: 880px) {
+@media (max-width: 1100px) {
   .actions .btn span {
     display: none;
   }
   .actions .btn {
-    padding: 0.45rem 0.55rem;
+    padding: 0.5rem 0.6rem;
   }
   .doc-name {
-    max-width: 140px;
+    max-width: 180px;
   }
 }
 
 @media (max-width: 640px) {
   .tool-name {
+    display: none;
+  }
+  .back-link {
     display: none;
   }
   header {

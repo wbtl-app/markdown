@@ -67,13 +67,24 @@
           <span>Documents</span>
         </button>
 
-        <button id="viewBtn" class="btn icon-btn" title="Toggle view (Ctrl+E)" aria-label="Toggle view mode">
-          <svg id="viewIcon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="3" width="18" height="18" rx="2"/>
-            <line x1="12" y1="3" x2="12" y2="21"/>
-          </svg>
-        </button>
+        <div class="dropdown">
+          <button class="btn" data-toggle="viewMenu" aria-haspopup="true" aria-expanded="false" title="View (Ctrl+E to cycle)">
+            <svg id="viewIcon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2"/>
+              <line x1="12" y1="3" x2="12" y2="21"/>
+            </svg>
+            <span id="viewLabel">Split</span>
+            <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div id="viewMenu" class="dropdown-menu" role="menu">
+            <button class="menu-item" data-action="view-split" data-view-value="split" role="menuitemradio">Editor and preview</button>
+            <button class="menu-item" data-action="view-editor" data-view-value="editor" role="menuitemradio">Editor only</button>
+            <button class="menu-item" data-action="view-preview" data-view-value="preview" role="menuitemradio">Preview only</button>
+          </div>
+        </div>
       </div>
+
+      <a href="https://wbtl.app" class="back-link">wbtl.app</a>
 
       <div class="theme-toggle" title="Toggle theme">
         <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke="currentColor">

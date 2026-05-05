@@ -117,8 +117,8 @@ const docsList = $('docsList');
 const dropOverlay = $('dropOverlay');
 const toast = $('toast');
 const themeToggle = $('themeToggle');
-const viewBtn = $('viewBtn');
 const viewIcon = $('viewIcon');
+const viewLabel = $('viewLabel');
 
 // ----- State -----
 let currentId = localStorage.getItem(STORAGE.CURRENT_ID) || null;
@@ -605,6 +605,9 @@ document.addEventListener('click', e => {
     case 'export-html': exportHtml(); break;
     case 'copy-md': copyToClipboard(editor.value, 'markdown'); break;
     case 'copy-html': copyToClipboard(renderMarkdown(editor.value), 'HTML'); break;
+    case 'view-split': setViewMode('split'); break;
+    case 'view-editor': setViewMode('editor'); break;
+    case 'view-preview': setViewMode('preview'); break;
   }
 });
 
@@ -625,21 +628,25 @@ function cycleView() {
 }
 
 function updateViewIcon() {
-  let svg;
+  let svg, label;
   if (viewMode === 'split') {
     svg = '<rect x="3" y="3" width="18" height="18" rx="2"/><line x1="12" y1="3" x2="12" y2="21"/>';
-    viewBtn.title = 'View: Split (Ctrl+E)';
+    label = 'Split';
   } else if (viewMode === 'editor') {
     svg = '<rect x="3" y="3" width="18" height="18" rx="2"/><line x1="7" y1="8" x2="17" y2="8"/><line x1="7" y1="12" x2="15" y2="12"/><line x1="7" y1="16" x2="13" y2="16"/>';
-    viewBtn.title = 'View: Editor (Ctrl+E)';
+    label = 'Editor';
   } else {
     svg = '<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="12" cy="12" r="3"/><path d="M3 12s3-7 9-7 9 7 9 7-3 7-9 7-9-7-9-7z"/>';
-    viewBtn.title = 'View: Preview (Ctrl+E)';
+    label = 'Preview';
   }
   viewIcon.innerHTML = svg;
+  if (viewLabel) viewLabel.textContent = label;
+  document.querySelectorAll('#viewMenu .menu-item').forEach(item => {
+    const active = item.dataset.viewValue === viewMode;
+    item.setAttribute('aria-checked', active ? 'true' : 'false');
+    item.classList.toggle('active', active);
+  });
 }
-
-viewBtn.addEventListener('click', cycleView);
 
 // ----- Splitter -----
 function applySplitRatio() {
