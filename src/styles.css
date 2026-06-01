@@ -367,7 +367,7 @@ main[data-view="preview"] .preview-pane {
 
 main[data-view="preview"] .preview-pane {
   display: flex;
-  justify-content: center;
+  align-items: center;
 }
 
 main[data-view="preview"] #preview {
